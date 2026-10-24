@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario: Oraciones Subordinadas de Relativo (NGLE)</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.5; padding: 20px; }
+        .container { max-width: 700px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 25px; font-size: 1.05em; }
+        .question { margin-bottom: 20px; padding: 15px; border: 1px solid #ecf0f1; border-radius: 6px; transition: all 0.3s ease; }
+        .question-title { font-weight: 600; font-size: 1.05em; margin-bottom: 10px; color: #2980b9; }
+        .options label { display: block; margin-bottom: 6px; padding: 8px 12px; background: #f9f9f9; border: 1px solid #dcdde1; border-radius: 4px; cursor: pointer; }
+        .options label:hover { background: #f1f2f6; }
+        .options input { margin-right: 8px; }
+        button { display: block; width: 100%; padding: 14px; background: #27ae60; color: #fff; border: none; border-radius: 4px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        button:hover { background: #219653; }
+        #result { margin-top: 20px; padding: 15px; border-radius: 4px; text-align: center; font-size: 1.25em; font-weight: bold; display: none; }
+        .feedback { margin-top: 10px; padding: 10px; background-color: #fff3cd; color: #856404; border-left: 4px solid #ffc107; font-size: 0.95em; display: none; border-radius: 0 4px 4px 0; }
+        .q-success { border: 2px solid #2ecc71; background-color: #fafdfb; }
+        .q-danger { border: 2px solid #e74c3c; background-color: #fffcfb; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .danger { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Subordinadas de Relativo (NGLE)</h1>
+    <div class="subtitle">Nivel: Bachillerato / Preparación Pruebas de Acceso (PAU)</div>
+    <form id="quizForm">
+        <div id="questionsContainer"></div>
+        <button type="button" onclick="evaluateQuiz()">Evaluar Respuestas</button>
+    </form>
+    <div id="result"></div>
+</div>
+<script>
+    const questionsData = [
+        {
+            id: 1,
+            title: "1. En la oración «El alumno que resolvió el enigma recibió una mención», ¿qué función sintáctica desempeña el pronombre relativo 'que' dentro de su proposición?",
+            options: ["A) Objeto directo (CD)", "B) Sujeto", "C) Término de un grupo preposicional", "D) Complemento circunstancial"],
+            correct: 1,
+            feedback: "Si aislamos la subordinada y sustituimos el relativo por su antecedente ('El alumno resolvió el enigma'), vemos que 'El alumno' realiza la acción y concuerda con el verbo. Por tanto, 'que' funciona como Sujeto."
+        },
+        {
+            id: 2,
+            title: "2. En el enunciado «Las dudas que planteaste en clase ya han sido resueltas», ¿cuál es la función sintáctica del pronombre relativo 'que'?",
+            options: ["A) Objeto directo (CD)", "B) Sujeto", "C) Atributo", "D) Complemento de régimen"],
+            correct: 0,
+            feedback: "Si reordenamos la cláusula subordinada sustituyendo el relativo ('Tú planteaste las dudas'), el antecedente funciona como el elemento que recibe directamente la acción del verbo. Por lo tanto, 'que' cumple la función de CD."
+        },
+        {
+            id: 3,
+            title: "3. En la oración «La propuesta de la que me hablaste ayer ha sido rechazada», ¿qué función sintáctica desempeña la oración de relativo (introducida por el relativo semilibre 'la que')?",
+            options: ["A) Complemento de régimen (CRég)", "B) Término de la preposición 'de'", "C) Complemento del nombre (CN)", "D) Objeto indirecto (CI)"],
+            correct: 1,
+            feedback: "El grupo preposicional completo ('de la que...') funciona como Complemento de Régimen del verbo 'hablar'. Por lo tanto, la preposición 'de' es el enlace y la oración de relativo semilibre ('la que me hablaste ayer') cumple la función de Término de esa preposición."
+        },
+        {
+            id: 4,
+            title: "4. ¿Qué diferencia de significado existe entre los enunciados «Los alumnos que estudiaron aprobaron» y «Los alumnos, que estudiaron, aprobaron» según la NGLE?",
+            options: ["A) Ninguna, la presencia de comas es solo una pausa gráfica opcional que no altera el sentido.", "B) La primera indica que todos los alumnos del grupo aprobaron; la segunda solo se refiere a una parte.", "C) La primera (especificativa) restringe el grupo (solo aprobaron los que estudiaron); la segunda (explicativa) afirma que todos los alumnos del grupo estudiaron y todos aprobaron.", "D) La primera es una subordinada sustantiva y la segunda es una subordinada adjetiva."],
+            correct: 2,
+            feedback: "Las oraciones de relativo especificativas (sin comas) limitan o restringen el alcance del antecedente (un subgrupo). Las explicativas (entre comas) no restringen, sino que añaden una información aplicable a la totalidad del antecedente."
+        },
+        {
+            id: 5,
+            title: "5. Señala cuál de las siguientes opciones contiene una oración subordinada de relativo LIBRE (sin antecedente expreso ni artículo nominalizador) según la NGLE:",
+            options: ["A) El alumno que termine el examen puede salir.", "B) Quien termine el examen puede salir.", "C) El que termine el examen puede salir.", "D) Lo que dices carece de sentido."],
+            correct: 1,
+            feedback: "Las relativas libres están introducidas por un relativo sin antecedente expreso y sin la presencia de un artículo previo. El pronombre 'quien' introduce directamente la cláusula libre, a diferencia de 'el que' o 'lo que', que forman relativas semilibres."
+        },
+        {
+            id: 6,
+            title: "6. En la oración «El escritor cuyo libro fue premiado dará una conferencia», ¿qué función sintáctica realiza el relativo 'cuyo' dentro de la subordinada?",
+            options: ["A) Sujeto", "B) Complemento del nombre (CN)", "C) Determinante (o modificador del núcleo sustantivo 'libro')", "D) Objeto directo (CD)"],
+            correct: 2,
+            feedback: "Según la NGLE, 'cuyo' es un relativo posesivo que funciona siempre como determinante. Acompaña al sustantivo de la subordinada ('libro'), concordando con él en género y número, a la vez que enlaza con el antecedente."
+        },
+        {
+            id: 7,
+            title: "7. En el enunciado «El que gane el torneo recibirá un trofeo», ¿qué función sintáctica desempeña la proposición subordinada de relativo semilibre en la oración principal?",
+            options: ["A) Sujeto", "B) Objeto directo (CD)", "C) Atributo", "D) Término de preposición"],
+            correct: 0,
+            feedback: "La proposición relativa semilibre 'El que gane el torneo' concuerda en tercera persona del singular con el verbo principal 'recibirá'. Si la pasamos al plural ('Los que ganen... recibirán'), el verbo cambia obligatoriamente, demostrando que funciona como Sujeto."
+        },
+        {
+            id: 8,
+            title: "8. En la oración «El pueblo donde pasamos los veranos es muy tranquilo», ¿cuál es la función sintáctica del adverbio relativo 'donde' dentro de la cláusula subordinada?",
+            options: ["A) Complemento circunstancial de lugar (CCL)", "B) Complemento de régimen (CRég)", "C) Sujeto", "D) Modificador del antecedente 'pueblo'"],
+            correct: 0,
+            feedback: "Aunque la subordinada entera modifica a 'pueblo', internamente el adverbio relativo 'donde' equivale a 'en el pueblo'. Dentro de su cláusula cumple la función de Complemento Circunstancial de Lugar ('pasamos los veranos en el pueblo')."
+        },
+        {
+            id: 9,
+            title: "9. ¿En cuál de las siguientes opciones la palabra 'que' funciona como pronombre relativo y no como conjunción completiva?",
+            options: ["A) Quiero que vengas mañana a clase.", "B) Es evidente que has estudiado mucho.", "C) Me alegra que hayas aprobado el examen.", "D) El examen que hicimos ayer era bastante complejo."],
+            correct: 3,
+            feedback: "En las opciones A, B y C, 'que' es una conjunción átona que introduce subordinadas sustantivas. En la opción D, 'que' es un pronombre relativo porque tiene un antecedente expreso ('El examen') y desempeña una función sintáctica interna (CD de 'hicimos')."
+        },
+        {
+            id: 10,
+            title: "10. En la oración «El asunto al que aludiste en tu discurso es confidencial», ¿qué función sintáctica cumple el pronombre relativo 'que' (en tanto que término del grupo preposicional)?",
+            options: ["A) Objeto directo (CD)", "B) Término del Complemento de Régimen (CRég)", "C) Término del Objeto Indirecto (CI)", "D) Complemento circunstancial"],
+            correct: 1,
+            feedback: "El verbo 'aludir' rige la preposición 'a' ('aludir a algo'). El grupo preposicional 'al que' actúa como Complemento de Régimen de 'aludiste'. Por tanto, el pronombre relativo 'que' funciona como el término de dicha preposición."
+        }
+    ];
+    // Crear la interfaz del test
+    const container = document.getElementById('questionsContainer');
+    questionsData.forEach(q => {
+        let optionsHTML = '';
+        q.options.forEach((opt, idx) => {
+            optionsHTML += `<label><input type="radio" name="q${q.id}" value="${idx}"> ${opt}</label>`;
+        });
+        container.innerHTML += `
+            <div class="question" id="q${q.id}-box">
+                <div class="question-title">${q.title}</div>
+                <div class="options">${optionsHTML}</div>
+                <div class="feedback" id="q${q.id}-feedback">❌ <strong>Incorrecto.</strong> La respuesta correcta era: <strong>${q.options[q.correct]}</strong>.<br>${q.feedback}</div>
+            </div>
+        `;
+    });
+
+    // Función que evalúa y corrige
+    function evaluateQuiz() {
+        let score = 0;
+        let allAnswered = true;
+
+        for (let i = 1; i <= questionsData.length; i++) {
+            if (!document.querySelector(`input[name="q${i}"]:checked`)) { allAnswered = false; break; }
+        }
+
+        const resultDiv = document.getElementById('result');
+        if (!allAnswered) {
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'danger';
+            resultDiv.innerHTML = '⚠️ Por favor, responde a todas las preguntas antes de evaluar el cuestionario.';
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+            return;
+        }
+
+        questionsData.forEach(q => {
+            const checkedOpt = document.querySelector(`input[name="q${q.id}"]:checked`);
+            const box = document.getElementById(`q${q.id}-box`);
+            const feedback = document.getElementById(`q${q.id}-feedback`);
+            const userAns = parseInt(checkedOpt.value);
+
+            if (userAns === q.correct) {
+                score++;
+                box.className = 'question q-success';
+                feedback.style.display = 'none';
+            } else {
+                box.className = 'question q-danger';
+                feedback.style.display = 'block';
+            }
+        });
+
+        resultDiv.style.display = 'block';
+        const finalGrade = (score / questionsData.length) * 10;
+        
+        if (finalGrade >= 5) {
+            resultDiv.className = 'success';
+            resultDiv.innerHTML = `🎉 ¡Cuestionario completado!<br>Tu calificación es: <strong>${finalGrade.toFixed(1)} / 10</strong> (${score} acertadas de ${questionsData.length})`;
+        } else {
+            resultDiv.className = 'danger';
+            resultDiv.innerHTML = `📉 Cuestionario completado.<br>Tu calificación es: <strong>${finalGrade.toFixed(1)} / 10</strong> (${score} acertadas de ${questionsData.length}). ¡Hay que seguir repasando!`;
+        }
+        resultDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
