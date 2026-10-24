@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario: Oraciones Compuestas y Subordinadas (NGLE)</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.5; padding: 20px; }
+        .container { max-width: 700px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 25px; font-size: 1.05em; }
+        .question { margin-bottom: 20px; padding: 15px; border: 1px solid #ecf0f1; border-radius: 6px; transition: all 0.3s ease; }
+        .question-title { font-weight: 600; font-size: 1.05em; margin-bottom: 10px; color: #2980b9; }
+        .options label { display: block; margin-bottom: 6px; padding: 8px 12px; background: #f9f9f9; border: 1px solid #dcdde1; border-radius: 4px; cursor: pointer; }
+        .options label:hover { background: #f1f2f6; }
+        .options input { margin-right: 8px; }
+        button { display: block; width: 100%; padding: 14px; background: #27ae60; color: #fff; border: none; border-radius: 4px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        button:hover { background: #219653; }
+        #result { margin-top: 20px; padding: 15px; border-radius: 4px; text-align: center; font-size: 1.25em; font-weight: bold; display: none; }
+        .feedback { margin-top: 10px; padding: 10px; background-color: #fff3cd; color: #856404; border-left: 4px solid #ffc107; font-size: 0.95em; display: none; border-radius: 0 4px 4px 0; }
+        .q-success { border: 2px solid #2ecc71; background-color: #fafdfb; }
+        .q-danger { border: 2px solid #e74c3c; background-color: #fffcfb; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .danger { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Oraciones Compuestas y Subordinadas (NGLE)</h1>
+    <div class="subtitle">Nivel: Bachillerato / Preparación Pruebas de Acceso (PAU)</div>
+    <form id="quizForm">
+        <div id="questionsContainer"></div>
+        <button type="button" onclick="evaluateQuiz()">Evaluar Respuestas</button>
+    </form>
+    <div id="result"></div>
+</div>
+<script>
+    const questionsData = [
+        {
+            id: 1,
+            title: "1. En la oración «Llegó tarde a la cita; el tren se había retrasado», ¿qué relación sintáctica existe entre las dos proposiciones?",
+            options: ["A) Coordinación copulativa", "B) Coordinación adversativa", "C) Subordinación sustantiva", "D) Yuxtaposición"],
+            correct: 3,
+            feedback: "La yuxtaposición se produce cuando las proposiciones están unidas por signos de puntuación (en este caso, un punto y coma) sin la presencia de nexos coordinantes ni subordinantes."
+        },
+        {
+            id: 2,
+            title: "2. En la oración «El profesor explicó la lección y los alumnos tomaron apuntes», ¿qué tipo de coordinación se establece?",
+            options: ["A) Coordinación copulativa", "B) Coordinación disyuntiva", "C) Coordinación adversativa", "D) Coordinación explicativa"],
+            correct: 0,
+            feedback: "Las oraciones coordinadas copulativas suman sus significados mediante nexos como *y*, *e*, *ni*."
+        },
+        {
+            id: 3,
+            title: "3. Señala la opción que presenta una oración coordinada adversativa:",
+            options: ["A) Unas veces ríe, otras llora", "B) O vienes con nosotros o te quedas en casa", "C) Intenté convencerlo, pero no lo logré", "D) Terminó sus estudios universitarios y ahora trabaja en una gran empresa"],
+            correct: 2,
+            feedback: "La coordinación adversativa expresa oposición o contraste entre las proposiciones mediante nexos como *mas*, *pero*, *sino*. La opción D es una oración compuesta por coordinación copulativa."
+        },
+        {
+            id: 4,
+            title: "4. ¿Qué tipo de coordinación presenta la oración «Bien estudias para el examen, bien te arriesgas a suspender»?",
+            options: ["A) Coordinación copulativa", "B) Coordinación distributiva (incluida en la coordinación disyuntiva según el Glosario de términos gramaticales)", "C) Coordinación explicativa", "D) Coordinación adversativa"],
+            correct: 1,
+            feedback: "Según el *Glosario de términos gramaticales* (GTG), las oraciones tradicionalmente denominadas distributivas se consideran un subtipo o se incluyen dentro de la coordinación disyuntiva, al presentar opciones alternantes que se excluyen o se alternan."
+        },
+        {
+            id: 5,
+            title: "5. En el enunciado «Salí a la calle: llovía a cántaros», ¿cómo se relacionan ambas proposiciones sintácticamente?",
+            options: ["A) Mediante subordinación causal", "B) Mediante coordinación explicativa", "C) Mediante subordinación sustantiva", "D) Mediante yuxtaposición"],
+            correct: 3,
+            feedback: "Sintácticamente es una oración yuxtapuesta unida por dos puntos, aunque semánticamente la segunda proposición exprese la causa de la primera."
+        },
+        {
+            id: 6,
+            title: "6. Identifica la opción que mejor caracteriza a la llamada coordinación explicativa según el marco del *Glosario de términos gramaticales*:",
+            options: ["A) Se agrupa dentro de los fenómenos de yuxtaposición mediante marcadores discursivos.", "B) Es un subtipo de subordinación adjetiva explicativa.", "C) Equivale estrictamente a la coordinación copulativa de sentido idéntico.", "D) Constituye un grupo independiente y aislado de la subordinación."],
+            correct: 0,
+            feedback: "Según el GTG, las estructuras explicativas introducidas por nexos como *es decir* o *o sea* no forman una coordinación estricta, sino que se vinculan a la conexión discursiva o yuxtaposición."
+        },
+        {
+            id: 7,
+            title: "7. En la oración «Me molesta que interrumpas la clase constantemente», ¿qué función sintáctica cumple la proposición subordinada sustantiva?",
+            options: ["A) Objeto directo (CD)", "B) Complemento de régimen", "C) Sujeto", "D) Atributo"],
+            correct: 2,
+            feedback: "La subordinada cumple la función de Sujeto. Podemos comprobarlo sustituyéndola por un grupo nominal que obligue a cambiar de número al verbo: «Me molesta *eso*» / «Me molestan *esas actitudes*»."
+        },
+        {
+            id: 8,
+            title: "8. En el enunciado «El director anunció que habrá nuevas normas de convivencia», ¿qué función sintáctica desempeña la subordinada sustantiva?",
+            options: ["A) Sujeto", "B) Objeto directo (CD)", "C) Atributo", "D) Complemento indirecto"],
+            correct: 1,
+            feedback: "La proposición subordinada sustantiva puede ser sustituida por el pronombre átono *lo*: «El director *lo* anunció». Por tanto, funciona como Objeto Directo."
+        },
+        {
+            id: 9,
+            title: "9. En la oración «Confío en que aprobaréis las PAU sin dificultad», ¿qué función desempeña la proposición subordinada sustantiva introducida por *que*?",
+            options: ["A) Objeto directo", "B) Sujeto", "C) Complemento del nombre", "D) Término del complemento de régimen (CRég)"],
+            correct: 3,
+            feedback: "El verbo *confiar* rige la preposición *en* (*confiar en algo*). La preposición actúa como enlace y la proposición subordinada sustantiva funciona como Término de dicha preposición."
+        },
+        {
+            id: 10,
+            title: "10. En la oración «Conviene que repases toda la teoría antes del examen», ¿qué función sintáctica cumple la proposición subordinada sustantiva?",
+            options: ["A) Sujeto", "B) Objeto directo", "C) Atributo", "D) Complemento circunstancial"],
+            correct: 0,
+            feedback: "La subordinada sustantiva desempeña la función de Sujeto del verbo unipersonal o impersonal reflejo *conviene* (comprobable al pluralizar: *Convienen otras medidas*)."
+        },
+        {
+            id: 11,
+            title: "11. ¿Qué función desempeña la proposición subordinada sustantiva de infinitivo en «Me gusta pasear por la playa al atardecer»?",
+            options: ["A) Objeto directo", "B) Complemento circunstancial", "C) Sujeto", "D) Atributo"],
+            correct: 2,
+            feedback: "*Pasear por la playa al atardecer* es una subordinada sustantiva de infinitivo que actúa como Sujeto, concordando con el verbo principal (si ponemos el verbo en plural: *Me gustan los paseos*)."
+        },
+        {
+            id: 12,
+            title: "12. En la oración «El profesor nos preguntó si habíamos estudiado las oraciones compuestas», ¿qué tipo de subordinada introduce la conjunción *si*?",
+            options: ["A) Una oración subordinada de relativo libre", "B) Una oración subordinada sustantiva interrogativa indirecta total", "C) Una oración subordinada adverbial condicional", "D) Una oración coordinada disyuntiva"],
+            correct: 1,
+            feedback: "La conjunción *si* introduce una oración subordinada sustantiva con función de Objeto Directo que expresa una pregunta indirecta total (de respuesta sí/no)."
+        },
+        {
+            id: 13,
+            title: "13. En la frase «Los libros que compramos ayer están en la estantería», ¿qué función realiza el pronombre relativo *que*?",
+            options: ["A) Sujeto", "B) Término de preposición", "C) Complemento circunstancial", "D) Objeto directo (CD)"],
+            correct: 3,
+            feedback: "Para justificar que ejerce como CD, aplicamos la prueba de la pronominalización: si sustituimos el grupo nominal antecedente y su subordinada o pasamos la estructura principal a un contexto con pronombre átono («Los libros *los* compramos ayer»), el pronombre relativo *que* (que recupera la referencia de *los libros*) asume la función de Objeto Directo."
+        },
+        {
+            id: 14,
+            title: "14. ¿Cuál es la diferencia fundamental entre las oraciones de relativo especificativas y las explicativas?",
+            options: ["A) Las especificativas delimitan o restringen el significado del antecedente; las explicativas añaden una cualidad sin restringir su extensión.", "B) Las especificativas van siempre entre comas; las explicativas, nunca.", "C) Las especificativas solo aparecen en textos orales; las explicativas, en los formales.", "D) No hay diferencias sintácticas, solo de entonación."],
+            correct: 0,
+            feedback: "Las especificativas seleccionan un subgrupo del antecedente (restringen), mientras que las explicativas (separadas por comas) aportan información adicional aplicable a la totalidad del antecedente."
+        },
+        {
+            id: 15,
+            title: "15. En la oración «El científico cuyo descubrimiento fue revolucionario recibió el premio», ¿qué función sintáctica desempeña el relativo *cuyo*?",
+            options: ["A) Sujeto de la subordinada", "B) Objeto directo", "C) Determinante o modificador del núcleo sustantivo de la subordinada", "D) Complemento del nombre de la principal"],
+            correct: 2,
+            feedback: "*Cuyo* es un relativo posesivo que funciona siempre como determinante del sustantivo que le sigue (*descubrimiento*), concordando con él en género y número, y relacionándolo con el antecedente."
+        },
+        {
+            id: 16,
+            title: "16. Señala la opción que contenga una oración subordinada de relativo LIBRE (sin antecedente expreso ni artículo):",
+            options: ["A) La persona que llegó tarde perdió el tren", "B) Quien mal anda, mal acaba", "C) El que termine el examen puede salir", "D) Lo que dices no tiene coartada"],
+            correct: 1,
+            feedback: "Las relativas libres carecen de antecedente expreso y de artículo antepuesto. El pronombre *quien* introduce directamente la cláusula libre. *El que* y *Lo que* forman relativas semilibres."
+        },
+        {
+            id: 17,
+            title: "17. En la oración «El laboratorio donde realizamos las prácticas está equipado con la última tecnología», ¿qué función cumple el adverbio relativo *donde*?",
+            options: ["A) Sujeto", "B) Complemento de Régimen", "C) Modificador del antecedente", "D) Complemento Circunstancial de Lugar (CCL)"],
+            correct: 3,
+            feedback: "El adverbio relativo *donde* equivale a *en el laboratorio*. Dentro de su propia proposición subordinada desempeña la función de Complemento Circunstancial de Lugar (*realizamos las prácticas en el laboratorio*)."
+        },
+        {
+            id: 18,
+            title: "18. En el enunciado «Lo que me contaste ayer me dejó muy pensativo», ¿qué función sintáctica cumple la subordinada de relativo semilibre en la oración principal?",
+            options: ["A) Sujeto", "B) Objeto directo", "C) Atributo", "D) Complemento circunstancial"],
+            correct: 0,
+            feedback: "La estructura *Lo que me contaste ayer* funciona como Sujeto de la oración principal, ya que al cambiar el número del verbo principal (*Me dejaron...*), esta estructura cambia de número obligatoriamente."
+        },
+        {
+            id: 19,
+            title: "19. ¿En cuál de las siguientes opciones la palabra *que* actúa como pronombre relativo?",
+            options: ["A) Deseo que apruebes todas las materias.", "B) Me sorprende que no lo sepas.", "C) El cuadro que pintó mi abuela cuelga en el salón.", "D) Es seguro que vendrá mañana."],
+            correct: 2,
+            feedback: "En A, B y D, *que* es una conjunción completiva que introduce una subordinada sustantiva. En C, *que* tiene un antecedente expreso (*El cuadro*) y ejerce una función sintáctica interna (CD), tratándose de un pronombre relativo."
+        },
+        {
+            id: 20,
+            title: "20. Analiza el siguiente enunciado: «Llegamos a la estación, pero el tren ya había salido». ¿Cómo se clasifica globalmente esta oración?",
+            options: ["A) Oración simple con dos verbos", "B) Oración compuesta por coordinación adversativa", "C) Oración compuesta por subordinación de relativo", "D) Oración compuesta por yuxtaposición"],
+            correct: 1,
+            feedback: "Es una oración compuesta formada por dos proposiciones sintácticamente independientes pero unidas por el nexo adversativo *pero*, lo que constituye una coordinación adversativa."
+        }
+    ];
+
+    // Crear la interfaz del test
+    const container = document.getElementById('questionsContainer');
+    questionsData.forEach(q => {
+        let optionsHTML = '';
+        q.options.forEach((opt, idx) => {
+            optionsHTML += `<label><input type="radio" name="q${q.id}" value="${idx}"> ${opt}</label>`;
+        });
+        container.innerHTML += `
+            <div class="question" id="q${q.id}-box">
+                <div class="question-title">${q.title}</div>
+                <div class="options">${optionsHTML}</div>
+                <div class="feedback" id="q${q.id}-feedback">❌ <strong>Incorrecto.</strong> La respuesta correcta era: <strong>${q.options[q.correct]}</strong>.<br>${q.feedback}</div>
+            </div>
+        `;
+    });
+
+    // Función que evalúa y corrige
+    function evaluateQuiz() {
+        let score = 0;
+        let allAnswered = true;
+
+        for (let i = 1; i <= questionsData.length; i++) {
+            if (!document.querySelector(`input[name="q${i}"]:checked`)) { allAnswered = false; break; }
+        }
+
+        const resultDiv = document.getElementById('result');
+        if (!allAnswered) {
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'danger';
+            resultDiv.innerHTML = '⚠️ Por favor, responde a todas las preguntas antes de evaluar el cuestionario.';
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+            return;
+        }
+
+        questionsData.forEach(q => {
+            const checkedOpt = document.querySelector(`input[name="q${q.id}"]:checked`);
+            const box = document.getElementById(`q${q.id}-box`);
+            const feedback = document.getElementById(`q${q.id}-feedback`);
+            const userAns = parseInt(checkedOpt.value);
+
+            if (userAns === q.correct) {
+                score++;
+                box.className = 'question q-success';
+                feedback.style.display = 'none';
+            } else {
+                box.className = 'question q-danger';
+                feedback.style.display = 'block';
+            }
+        });
+
+        resultDiv.style.display = 'block';
+        const finalGrade = (score / questionsData.length) * 10;
+        
+        if (finalGrade >= 5) {
+            resultDiv.className = 'success';
+            resultDiv.innerHTML = `🎉 ¡Cuestionario completado!<br>Tu calificación es: <strong>${finalGrade.toFixed(1)} / 10</strong> (${score} acertadas de ${questionsData.length})`;
+        } else {
+            resultDiv.className = 'danger';
+            resultDiv.innerHTML = `📉 Cuestionario completado.<br>Tu calificación es: <strong>${finalGrade.toFixed(1)} / 10</strong> (${score} acertadas de ${questionsData.length}). ¡Hay que seguir repasando!`;
+        }
+        resultDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
